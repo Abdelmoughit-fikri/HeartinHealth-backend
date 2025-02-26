@@ -19,9 +19,9 @@ class CardiacWellBeingSRZ(serializers.ModelSerializer):
     class Meta:
         model = Article
         fields = [
-            'id', 'title', 'author_full_name', 'category',
+            'id', 'title', 'author_full_name','author_label', 'category',
             'overView', 'content', 'keywords', 'created_at', 'updated_at',
-            'primary_image', 'video_URL', 'is_active', 'is_important',
+            'primary_image', 'video_URL','links', 'is_active', 'is_important',
             'is_highlighted', 'is_highlighted_score', 'attached_files', 'secondary_images'
         ]
     def get_author_full_name(self, obj):
