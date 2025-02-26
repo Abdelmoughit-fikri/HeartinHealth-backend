@@ -35,7 +35,7 @@ class Article(models.Model):
         max_length=500, help_text='comma-separated keywords')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    primary_image = models.ImageField(upload_to='cwb/primary_images')
+    primary_image = models.ImageField(upload_to='S&D/primary_images')
     video_URL = models.URLField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_important = models.BooleanField(default=False)

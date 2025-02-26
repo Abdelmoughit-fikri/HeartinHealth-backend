@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'cardiacWellBeing',
     'cardiacDiseases',
     'cardiacSymptomsAndDiagnosis',
+    'cardiacInnovations',
     'search',
     'newsletter',
     'rest_framework',

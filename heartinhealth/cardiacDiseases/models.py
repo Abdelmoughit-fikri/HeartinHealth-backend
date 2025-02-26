@@ -39,7 +39,7 @@ class Article(models.Model):
         max_length=500, help_text='comma-separated keywords')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    primary_image = models.ImageField(upload_to='cwb/primary_images')
+    primary_image = models.ImageField(upload_to='CD/primary_images')
     video_URL = models.URLField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_important = models.BooleanField(default=False)
@@ -48,18 +48,18 @@ class Article(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(5)], blank=True, null=True)
 
     def __str__(self):
-        return f"{self.author.get_full_name() or self.author.username} - {self.title}"
+        return self.title
 
 
 class SecondaryImage(models.Model):
     Article = models.ForeignKey(
         Article, on_delete=models.CASCADE, related_name='secondary_images')
     secondary_image = models.ImageField(
-        upload_to='cardiacDiseases/secondary_images', blank=True, null=True)
+        upload_to='CD/secondary_images', blank=True, null=True)
 
 
 class AttachedFile(models.Model):
     Article = models.ForeignKey(
         Article, on_delete=models.CASCADE, related_name='attached_files')
     attached_file = models.FileField(
-        upload_to='cardiacDiseases/attached_files', blank=True, null=True)
+        upload_to='CD/attached_files', blank=True, null=True)

@@ -10,6 +10,7 @@ urlpatterns = [
     path('api/cardiacDiseases/', include('cardiacDiseases.urls')),
     path('api/symptoms&diagnosis/', include('cardiacSymptomsAndDiagnosis.urls')),
     path('api/cardiacWellBeing/', include('cardiacWellBeing.urls')),
+    path('api/cardiacInnovations/', include('cardiacInnovations.urls')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'),
          name='swagger-ui'),

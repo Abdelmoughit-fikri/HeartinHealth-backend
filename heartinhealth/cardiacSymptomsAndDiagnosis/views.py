@@ -51,8 +51,8 @@ class CardiacSymptomsAndDiagnosisViewSet(viewsets.ReadOnlyModelViewSet):
 
     @extend_schema(
         parameters=[
-            OpenApiParameter(name="1.category", type=str, description="Filter by category"),
-            OpenApiParameter(name="2.sub_category", type=str, description="Filter by sub_category"),
+            OpenApiParameter(name="category", type=str, description="Filter by category"),
+            OpenApiParameter(name="sub_category", type=str, description="Filter by sub_category"),
             OpenApiParameter(name="latest", type=bool, description="Sort by latest (true/false)"),
             OpenApiParameter(name="oldest", type=bool, description="Sort by oldest (true/false)"),
             OpenApiParameter(name="importance", type=bool, description="order by article's importance (true/false)"),

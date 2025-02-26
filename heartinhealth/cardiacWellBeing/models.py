@@ -22,7 +22,7 @@ class Article(models.Model):
         max_length=500, help_text='comma-separated keywords')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    primary_image = models.ImageField(upload_to='cwb/primary_images')
+    primary_image = models.ImageField(upload_to='CWB/primary_images')
     video_URL = models.URLField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_important = models.BooleanField(default=False)
@@ -37,11 +37,11 @@ class SecondaryImage(models.Model):
     Article = models.ForeignKey(
         Article, on_delete=models.CASCADE, related_name='secondary_images')
     secondary_image = models.ImageField(
-        upload_to='cwb/secondary_images', blank=True, null=True)
+        upload_to='CWB/secondary_images', blank=True, null=True)
 
 
 class AttachedFile(models.Model):
     Article = models.ForeignKey(
         Article, on_delete=models.CASCADE, related_name='attached_files')
     attached_file = models.FileField(
-        upload_to='cwb/attached_files', blank=True, null=True)
+        upload_to='CWB/attached_files', blank=True, null=True)
