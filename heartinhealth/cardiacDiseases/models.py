@@ -15,6 +15,7 @@ class Article(models.Model):
     title = models.CharField(max_length=200)
     author = models.ForeignKey(User, on_delete=models.SET_DEFAULT,
                                default=get_default_user, related_name='cardiacDiseasesArticles')
+    author_label = models.CharField(max_length=50,blank=True,null=True)
     category = models.CharField(max_length=50, choices=[
         ('heart diseases', 'heart diseases'),
         ('vascular diseases', 'vascular diseases'),
@@ -41,6 +42,7 @@ class Article(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     primary_image = models.ImageField(upload_to='CD/primary_images')
     video_URL = models.URLField(blank=True, null=True)
+    links= models.TextField(help_text='enter multiple URLs as csv',blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_important = models.BooleanField(default=False)
     is_highlighted = models.BooleanField(default=False)
