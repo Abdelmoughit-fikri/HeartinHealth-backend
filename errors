@@ -1,0 +1,1 @@
+static filee : python manage.py collectstatic --dry-run --noinput
