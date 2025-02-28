@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Article,SecondaryImage,AttachedFile
+from .models import CsdArticle,SecondaryImage,AttachedFile
 
 class SecondaryImagesSRZ(serializers.ModelSerializer):
     class Meta:
@@ -16,7 +16,7 @@ class CardiacSymptomsAndDiagnosisSRZ(serializers.ModelSerializer):
     attached_files = AttachedFilesSRZ(many=True,read_only=True)
     author_full_name = serializers.SerializerMethodField()
     class Meta:
-        model = Article
+        model = CsdArticle
         fields = [
             'id', 'title', 'author_full_name','author_label', 'category', 'sub_category',
             'overView', 'content', 'keywords', 'created_at', 'updated_at',

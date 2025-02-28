@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from .models import Article, SecondaryImage, AttachedFile
+from .models import CdArticle, SecondaryImage, AttachedFile
 
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -22,6 +22,6 @@ class ArticleAdmin(admin.ModelAdmin):
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
-admin.site.register(Article, ArticleAdmin)
+admin.site.register(CdArticle, ArticleAdmin)
 admin.site.register(SecondaryImage)
 admin.site.register(AttachedFile)

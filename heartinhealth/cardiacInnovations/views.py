@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.response import Response
-from .models import Article
+from .models import CiArticle
 from .serializers import CardiacInnovationsSRZ
 from rest_framework.pagination import PageNumberPagination
 from drf_spectacular.utils import extend_schema, OpenApiParameter
@@ -22,7 +22,7 @@ class ArticlePagination(PageNumberPagination):
 
 
 class CardiacInnovationsViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Article.objects.all()
+    queryset = CiArticle.objects.all()
     serializer_class = CardiacInnovationsSRZ
     pagination_class = ArticlePagination
 
@@ -31,7 +31,7 @@ class CardiacInnovationsViewSet(viewsets.ReadOnlyModelViewSet):
 # category | sub_category | latest | oldest | importance
 
     def get_queryset(self):
-        queryset = Article.objects.all()
+        queryset = CiArticle.objects.all()
         category = self.request.GET.get('category', None)
         latest = self.request.GET.get('latest', None)
         oldest = self.request.GET.get('oldest', None)

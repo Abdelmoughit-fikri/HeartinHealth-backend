@@ -11,7 +11,7 @@ def get_default_user():
     return None  # Allows NULL if no user exists
 
 
-class Article(models.Model):
+class CdArticle(models.Model):
     title = models.CharField(max_length=200)
     author = models.ForeignKey(User, on_delete=models.SET_DEFAULT,
                                default=get_default_user, related_name='cardiacDiseasesArticles')
@@ -38,6 +38,7 @@ class Article(models.Model):
     content = models.TextField()
     keywords = models.CharField(
         max_length=500, help_text='comma-separated keywords')
+    search_queries = models.CharField(max_length=200, help_text='csv', null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     primary_image = models.ImageField(upload_to='CD/primary_images')
@@ -55,13 +56,13 @@ class Article(models.Model):
 
 class SecondaryImage(models.Model):
     Article = models.ForeignKey(
-        Article, on_delete=models.CASCADE, related_name='secondary_images')
+        CdArticle, on_delete=models.CASCADE, related_name='secondary_images')
     secondary_image = models.ImageField(
         upload_to='CD/secondary_images', blank=True, null=True)
 
 
 class AttachedFile(models.Model):
     Article = models.ForeignKey(
-        Article, on_delete=models.CASCADE, related_name='attached_files')
+        CdArticle, on_delete=models.CASCADE, related_name='attached_files')
     attached_file = models.FileField(
         upload_to='CD/attached_files', blank=True, null=True)

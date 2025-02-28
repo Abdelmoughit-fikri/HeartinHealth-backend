@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Article,SecondaryImage,AttachedFile
+from .models import CwbArticle,SecondaryImage,AttachedFile
 
 class SecondaryImagesSRZ(serializers.ModelSerializer):
     class Meta:
@@ -17,7 +17,7 @@ class CardiacWellBeingSRZ(serializers.ModelSerializer):
     author_full_name = serializers.SerializerMethodField()
 
     class Meta:
-        model = Article
+        model = CwbArticle
         fields = [
             'id', 'title', 'author_full_name','author_label', 'category',
             'overView', 'content', 'keywords', 'created_at', 'updated_at',
