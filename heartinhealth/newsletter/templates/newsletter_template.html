@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ subject }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+        .container { max-width: 600px; background: white; padding: 20px; margin: auto; border-radius: 10px; text-align: center; }
+        .content { font-size: 16px; line-height: 1.5; }
+        .btn { display: inline-block; background: #007bff; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px; margin-top: 15px; }
+        .newsletter-image { max-width: 100%; height: auto; border-radius: 10px; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% if image_url %}
+            <img src="{{ image_url }}" alt="Newsletter Image" class="newsletter-image">
+        {% endif %}
+        <h2>{{ title }}</h2>
+        <p>Hello {{ full_name }},</p>
+        <p>{{ body }}</p>
+        {% if action_link %}
+            <a href="{{ action_link }}" class="btn">Read More</a>
+        {% endif %}
+        <p>Thanks, <br> The Team</p>
+    </div>
+</body>
+</html>
