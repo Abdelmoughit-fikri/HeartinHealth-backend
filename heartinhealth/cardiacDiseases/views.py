@@ -31,7 +31,7 @@ class CardiacDiseasesViewSet(viewsets.ReadOnlyModelViewSet):
 # category | sub_category | latest | oldest | importance
 
     def get_queryset(self):
-        queryset = CdArticle.objects.all()
+        queryset = CdArticle.objects.all().order_by('-created_at')
         category = self.request.GET.get('category', None)
         sub_category = self.request.GET.get('sub_category', None)
         latest = self.request.GET.get('latest', None)
