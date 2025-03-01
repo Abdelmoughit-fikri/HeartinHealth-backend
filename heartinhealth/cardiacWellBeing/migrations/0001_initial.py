@@ -8,70 +8,190 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='CwbArticle',
+            name="CwbArticle",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200)),
-                ('author', models.CharField(max_length=50)),
-                ('overView', models.TextField()),
-                ('content', models.TextField()),
-                ('keywords', models.CharField(help_text='comma-separated keywords', max_length=500)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('primary_image', models.ImageField(upload_to='cwb/primary_images')),
-                ('video_URL', models.URLField(blank=True, null=True)),
-                ('is_active', models.BooleanField(default=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=200)),
+                ("author", models.CharField(max_length=50)),
+                ("overView", models.TextField()),
+                ("content", models.TextField()),
+                (
+                    "keywords",
+                    models.CharField(
+                        help_text="comma-separated keywords", max_length=500
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("primary_image", models.ImageField(upload_to="cwb/primary_images")),
+                ("video_URL", models.URLField(blank=True, null=True)),
+                ("is_active", models.BooleanField(default=True)),
             ],
         ),
         migrations.CreateModel(
-            name='CwbCategory',
+            name="CwbCategory",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(choices=[('Wellness', 'wellness'), ('Prevention', 'prevention')], max_length=100, unique=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        choices=[
+                            ("Wellness", "wellness"),
+                            ("Prevention", "prevention"),
+                        ],
+                        max_length=100,
+                        unique=True,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='CwbTag',
+            name="CwbTag",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50, unique=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=50, unique=True)),
             ],
         ),
         migrations.CreateModel(
-            name='CwbAttachedFiles',
+            name="CwbAttachedFiles",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('attached_file', models.FileField(blank=True, null=True, upload_to='cwb/attached_files')),
-                ('Article', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='attached_files', to='cardiacWellBeing.cwbarticle')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "attached_file",
+                    models.FileField(
+                        blank=True, null=True, upload_to="cwb/attached_files"
+                    ),
+                ),
+                (
+                    "Article",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="attached_files",
+                        to="cardiacWellBeing.cwbarticle",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='CwbArticleCategory',
+            name="CwbArticleCategory",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('article', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='categories', to='cardiacWellBeing.cwbarticle')),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cardiacWellBeing.cwbcategory')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "article",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="categories",
+                        to="cardiacWellBeing.cwbarticle",
+                    ),
+                ),
+                (
+                    "category",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="cardiacWellBeing.cwbcategory",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='CwbSecondaryImages',
+            name="CwbSecondaryImages",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('secondary_image', models.ImageField(blank=True, null=True, upload_to='cwb/secondary_images')),
-                ('Article', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='secondary_images', to='cardiacWellBeing.cwbarticle')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "secondary_image",
+                    models.ImageField(
+                        blank=True, null=True, upload_to="cwb/secondary_images"
+                    ),
+                ),
+                (
+                    "Article",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="secondary_images",
+                        to="cardiacWellBeing.cwbarticle",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='CwbArticleTag',
+            name="CwbArticleTag",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('article', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='tags', to='cardiacWellBeing.cwbarticle')),
-                ('tag', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cardiacWellBeing.cwbtag')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "article",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="tags",
+                        to="cardiacWellBeing.cwbarticle",
+                    ),
+                ),
+                (
+                    "tag",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="cardiacWellBeing.cwbtag",
+                    ),
+                ),
             ],
         ),
     ]

@@ -8,42 +8,128 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Article',
+            name="Article",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200)),
-                ('author', models.CharField(max_length=50)),
-                ('supra_category', models.CharField(choices=[('heart diseases', 'heart diseases'), ('vascular diseases', 'vascular diseases'), ('Systemic & Inflammatory Cardiovascular Diseases', 'Systemic & Inflammatory Cardiovascular Diseases')], max_length=50)),
-                ('sub_category', models.CharField(choices=[('Congenital Heart Diseases', 'Congenital Heart Diseases'), ('Valvular Heart Diseases', 'Valvular Heart Diseases'), ('Myocardial Diseases', 'Myocardial Diseases'), ('Ischemic Heart Diseases', 'Ischemic Heart Diseases'), ('Electrical Disorders', 'Electrical Disorders'), ('Hypertensive Heart Disease', 'Hypertensive Heart Disease'), ('Heart Failure', 'Heart Failure'), ('Pericardial Diseases', 'Pericardial Diseases'), ('Arterial Diseases', 'Arterial Diseases'), ('Venous Diseases', 'Venous Diseases')], max_length=50, null=True)),
-                ('overView', models.TextField()),
-                ('content', models.TextField()),
-                ('keywords', models.CharField(help_text='comma-separated keywords', max_length=500)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('primary_image', models.ImageField(upload_to='cwb/primary_images')),
-                ('video_URL', models.URLField(blank=True, null=True)),
-                ('is_active', models.BooleanField(default=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=200)),
+                ("author", models.CharField(max_length=50)),
+                (
+                    "supra_category",
+                    models.CharField(
+                        choices=[
+                            ("heart diseases", "heart diseases"),
+                            ("vascular diseases", "vascular diseases"),
+                            (
+                                "Systemic & Inflammatory Cardiovascular Diseases",
+                                "Systemic & Inflammatory Cardiovascular Diseases",
+                            ),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                (
+                    "sub_category",
+                    models.CharField(
+                        choices=[
+                            ("Congenital Heart Diseases", "Congenital Heart Diseases"),
+                            ("Valvular Heart Diseases", "Valvular Heart Diseases"),
+                            ("Myocardial Diseases", "Myocardial Diseases"),
+                            ("Ischemic Heart Diseases", "Ischemic Heart Diseases"),
+                            ("Electrical Disorders", "Electrical Disorders"),
+                            (
+                                "Hypertensive Heart Disease",
+                                "Hypertensive Heart Disease",
+                            ),
+                            ("Heart Failure", "Heart Failure"),
+                            ("Pericardial Diseases", "Pericardial Diseases"),
+                            ("Arterial Diseases", "Arterial Diseases"),
+                            ("Venous Diseases", "Venous Diseases"),
+                        ],
+                        max_length=50,
+                        null=True,
+                    ),
+                ),
+                ("overView", models.TextField()),
+                ("content", models.TextField()),
+                (
+                    "keywords",
+                    models.CharField(
+                        help_text="comma-separated keywords", max_length=500
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("primary_image", models.ImageField(upload_to="cwb/primary_images")),
+                ("video_URL", models.URLField(blank=True, null=True)),
+                ("is_active", models.BooleanField(default=True)),
             ],
         ),
         migrations.CreateModel(
-            name='AttachedFile',
+            name="AttachedFile",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('attached_file', models.FileField(blank=True, null=True, upload_to='cwb/attached_files')),
-                ('Article', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='attached_files', to='cardiacDiseases.article')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "attached_file",
+                    models.FileField(
+                        blank=True, null=True, upload_to="cwb/attached_files"
+                    ),
+                ),
+                (
+                    "Article",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="attached_files",
+                        to="cardiacDiseases.article",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='SecondaryImage',
+            name="SecondaryImage",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('secondary_image', models.ImageField(blank=True, null=True, upload_to='cwb/secondary_images')),
-                ('Article', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='secondary_images', to='cardiacDiseases.article')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "secondary_image",
+                    models.ImageField(
+                        blank=True, null=True, upload_to="cwb/secondary_images"
+                    ),
+                ),
+                (
+                    "Article",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="secondary_images",
+                        to="cardiacDiseases.article",
+                    ),
+                ),
             ],
         ),
     ]

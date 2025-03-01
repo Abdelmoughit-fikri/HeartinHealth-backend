@@ -6,20 +6,20 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cardiacWellBeing', '0003_remove_cwbarticletag_article_and_more'),
+        ("cardiacWellBeing", "0003_remove_cwbarticletag_article_and_more"),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='CwbArticle',
-            new_name='Article',
+            old_name="CwbArticle",
+            new_name="Article",
         ),
         migrations.RenameModel(
-            old_name='CwbAttachedFile',
-            new_name='AttachedFile',
+            old_name="CwbAttachedFile",
+            new_name="AttachedFile",
         ),
         migrations.RenameModel(
-            old_name='CwbSecondaryImage',
-            new_name='SecondaryImage',
+            old_name="CwbSecondaryImage",
+            new_name="SecondaryImage",
         ),
     ]

@@ -1,9 +1,16 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from .models import CsdArticle,SecondaryImage,AttachedFile
+from .models import CsdArticle, SecondaryImage, AttachedFile
+
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'get_author_full_name', 'category','primary_image', 'created_at')
+    list_display = (
+        "title",
+        "get_author_full_name",
+        "category",
+        "primary_image",
+        "created_at",
+    )
 
     def get_author_full_name(self, obj):
         if obj.author:
@@ -16,7 +23,8 @@ class ArticleAdmin(admin.ModelAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "author":
             kwargs["queryset"] = User.objects.filter(
-                id=request.user.id)  # Show only the logged-in user
+                id=request.user.id
+            )  # Show only the logged-in user
             kwargs["initial"] = request.user  # Preselect the logged-in user
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 

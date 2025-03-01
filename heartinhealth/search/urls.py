@@ -4,8 +4,8 @@ from . import views
 
 # Create a router and register the SearchViewSet
 router = DefaultRouter()
-router.register(r'', views.searcHinhViewSet, basename='search')
+router.register(r"", views.searcHinhViewSet, basename="search")
 
 urlpatterns = [
-    path('', include(router.urls)),  # This ensures /api/search/ works
+    path("", include(router.urls)),  # This ensures /api/search/ works
 ]
