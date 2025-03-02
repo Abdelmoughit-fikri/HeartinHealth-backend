@@ -1,22 +1,13 @@
 import os
 from pathlib import Path
 import environ
-
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
-SECRET_KEY = env("DJANGO_SECRET_KEY")
-
 
 DEBUG = True
-
 ALLOWED_HOSTS = []
-
-
-# Application definition
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -31,6 +22,7 @@ INSTALLED_APPS = [
     "search",
     "rest_framework",
     "drf_spectacular",
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -91,9 +83,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
-
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -102,24 +91,38 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-STATIC_URL = "static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
+AWS_CLOUDFRONT_DOMAIN = "dev6vhoqy73i5.cloudfront.net"
+AWS_ACCESS_KEY_ID=env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY=env('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME=env('AWS_STORAGE_BUCKET_NAME')
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+    },
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "OPTIONS": {
+            "custom_domain": "heartinhealth.s3.amazonaws.com",  
+        }
+    },
+    "media": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "OPTIONS": {
+            "custom_domain": "heartinhealth.s3.amazonaws.com",
+        }
+    },
+}
 
-MEDIA_URL = "/media/"  # URL for accessing media files
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")  # Folder where files are stored
+MEDIA_URL = "https://heartinhealth.s3.amazonaws.com/media/"
+STATIC_URL = "https://heartinhealth.s3.amazonaws.com/static/"
+
+
+SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 
