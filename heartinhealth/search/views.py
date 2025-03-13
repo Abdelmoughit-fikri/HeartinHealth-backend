@@ -1,4 +1,4 @@
-from rest_framework.viewsets import ViewSet
+from rest_framework.viewsets import ViewSet, GenericViewSet
 from rest_framework.response import Response
 from django.db.models import Q, Value
 from django.db.models.functions import Concat
@@ -10,15 +10,7 @@ from .serializers import CdSearchSRZ, CiSearchSRZ, CsdSearchSRZ, CwbSearchSRZ
 from drf_spectacular.utils import extend_schema
 
 
-class searcHinhViewSet(ViewSet):
-    @extend_schema(
-        parameters=[],
-        responses={
-            200: {
-                "search_results": CdSearchSRZ(many=True)  # Pick one for documentation
-            }
-        },
-    )
+class searcHinhViewSet(GenericViewSet):
     def list(self, request):
         query = self.request.GET.get("q", "")
 

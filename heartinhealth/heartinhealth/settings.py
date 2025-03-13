@@ -23,11 +23,13 @@ INSTALLED_APPS = [
     "rest_framework",
     "drf_spectacular",
     'storages',
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -52,6 +54,13 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    'http://localhost:3000',
 ]
 
 WSGI_APPLICATION = "heartinhealth.wsgi.application"
@@ -97,7 +106,14 @@ REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
-AWS_CLOUDFRONT_DOMAIN = "dev6vhoqy73i5.cloudfront.net"
+# SPECTACULAR_SETTINGS = {
+#     "ENUM_NAME_OVERRIDES": {
+#         "cardiacDiseases.models.CdArticle.category": "CdArticleCategoryEnum",
+#         "cardiacSymptomsAndDiagnosis.models.CsdArticle.category": "CsdArticleCategoryEnum",
+#     },
+# }
+
+
 AWS_ACCESS_KEY_ID=env('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY=env('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME=env('AWS_STORAGE_BUCKET_NAME')
@@ -111,16 +127,10 @@ STORAGES = {
             "custom_domain": "heartinhealth.s3.amazonaws.com",  
         }
     },
-    "media": {
-        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-        "OPTIONS": {
-            "custom_domain": "heartinhealth.s3.amazonaws.com",
-        }
-    },
 }
 
-MEDIA_URL = "https://heartinhealth.s3.amazonaws.com/media/"
-STATIC_URL = "https://heartinhealth.s3.amazonaws.com/static/"
+MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/"
+STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/"
 
 
 SECRET_KEY = env("DJANGO_SECRET_KEY")

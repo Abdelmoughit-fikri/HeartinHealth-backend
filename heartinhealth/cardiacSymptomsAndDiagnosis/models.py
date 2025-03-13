@@ -24,10 +24,10 @@ class CsdArticle(models.Model):
         max_length=50,
         choices=[
             ("heart diseases", "heart diseases"),
-            ("vascular diseases", "vascular diseases"),
+            ("vascular diseases", "hascular diseases"),
             (
-                "Systemic & Inflammatory Cardiovascular Diseases",
-                "Systemic & Inflammatory Cardiovascular Diseases",
+                "systemic & Inflammatory Cardiovascular Diseases",
+                "systemic & Inflammatory Cardiovascular Diseases",
             ),
         ],
     )

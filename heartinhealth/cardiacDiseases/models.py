@@ -26,8 +26,8 @@ class CdArticle(models.Model):
             ("heart diseases", "heart diseases"),
             ("vascular diseases", "vascular diseases"),
             (
-                "Systemic & Inflammatory Cardiovascular Diseases",
-                "Systemic & Inflammatory Cardiovascular Diseases",
+                "systemic & Inflammatory Cardiovascular Diseases",
+                "systemic & Inflammatory Cardiovascular Diseases",
             ),
         ],
     )
