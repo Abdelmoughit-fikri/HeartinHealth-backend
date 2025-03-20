@@ -7,8 +7,8 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 from corsheaders.defaults import default_headers
 
 
-DEBUG = True
-ALLOWED_HOSTS = []
+DEBUG = False
+ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -58,7 +58,8 @@ TEMPLATES = [
 ]
 
 CORS_ALLOWED_ORIGINS = [  
-    "http://localhost:3000",  
+    "http://localhost:3000",
+    'http://192.168.1.110:3000'
 ]   
 
 CORS_ALLOW_METHODS = [
@@ -69,7 +70,6 @@ CORS_ALLOW_METHODS = [
 CORS_ALLOW_HEADERS = [
     "Content-Type",
 ]
-CORS_ALLOW_CREDENTIALS = False  # Since you don't need cookies, this can be False
 
 WSGI_APPLICATION = "heartinhealth.wsgi.application"
 
@@ -79,7 +79,7 @@ DATABASES = {
         "NAME": env('DB_NAME'),
         "USER": env('DB_USER_NAME'),
         "PASSWORD": env('DB_PASSWORD'),
-        "HOST": env('DB_LOCALHOST'),
+        "HOST": env('DB_HOST'),
         "PORT": env("DB_PORT"),
     }
 }
