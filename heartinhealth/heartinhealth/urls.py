@@ -12,7 +12,7 @@ from drf_spectacular.views import (
 urlpatterns = [
     path("heartinhealthAdmin/", admin.site.urls),
     path("api/cardiacDiseases/", include("cardiacDiseases.urls")),
-    path("api/symptoms&diagnosis/", include("cardiacSymptomsAndDiagnosis.urls")),
+    path("api/symptoms/", include("cardiacSymptomsAndDiagnosis.urls")),
     path("api/cardiacWellBeing/", include("cardiacWellBeing.urls")),
     path("api/cardiacInnovations/", include("cardiacInnovations.urls")),
     path("api/search/", include("search.urls")),

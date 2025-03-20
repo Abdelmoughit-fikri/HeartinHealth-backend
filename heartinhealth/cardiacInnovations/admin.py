@@ -9,6 +9,7 @@ class ArticleAdmin(admin.ModelAdmin):
         "get_author_full_name",
         "category",
         "primary_image",
+        'is_highlighted',
         "created_at",
     )
 

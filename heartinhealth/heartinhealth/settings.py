@@ -4,6 +4,7 @@ import environ
 BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+from corsheaders.defaults import default_headers
 
 
 DEBUG = True
@@ -56,12 +57,19 @@ TEMPLATES = [
     },
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
+CORS_ALLOWED_ORIGINS = [  
+    "http://localhost:3000",  
+]   
+
+CORS_ALLOW_METHODS = [
+    "GET",
+    "OPTIONS",
 ]
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    'http://localhost:3000',
+
+CORS_ALLOW_HEADERS = [
+    "Content-Type",
 ]
+CORS_ALLOW_CREDENTIALS = False  # Since you don't need cookies, this can be False
 
 WSGI_APPLICATION = "heartinhealth.wsgi.application"
 

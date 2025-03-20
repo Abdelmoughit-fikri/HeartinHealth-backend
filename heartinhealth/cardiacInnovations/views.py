@@ -29,7 +29,7 @@ class CardiacInnovationsViewSet(viewsets.ReadOnlyModelViewSet):
     pagination_class = ArticlePagination
 
     # my qery params are:
-    # category | sub_category | latest | oldest | importance
+    # category | sub_category | latest | oldest | importance | highlighted
 
     def get_queryset(self):
         queryset = CiArticle.objects.all().order_by("-created_at")
@@ -37,14 +37,17 @@ class CardiacInnovationsViewSet(viewsets.ReadOnlyModelViewSet):
         latest = self.request.GET.get("latest", None)
         oldest = self.request.GET.get("oldest", None)
         importance = self.request.GET.get("importance", None)
+        highlighted = self.request.GET.get("highlighted", None)
         if category:
             queryset = queryset.filter(category__iexact=category)
         if latest:
-            queryset = queryset.order_by("-updated_at")
+            queryset = queryset.order_by("-created_at")
         if oldest:
-            queryset = queryset.order_by("updated_at")
+            queryset = queryset.order_by("created_at")
         if importance:
-            queryset = queryset.order_by("is_important")
+            queryset = queryset.filter(is_important=True)
+        if highlighted:
+            queryset = queryset.filter(is_highlighted=True)
 
         return queryset
 
@@ -63,6 +66,11 @@ class CardiacInnovationsViewSet(viewsets.ReadOnlyModelViewSet):
                 name="importance",
                 type=bool,
                 description="order by article's importance (true/false)",
+            ),
+            OpenApiParameter(
+                name='highlighted',
+                type=bool,
+                description='highlighted articles',
             ),
         ]
     )

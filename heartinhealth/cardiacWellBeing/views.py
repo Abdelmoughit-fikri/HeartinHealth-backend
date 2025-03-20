@@ -32,19 +32,23 @@ class CardiacWellBeingViewSet(viewsets.ReadOnlyModelViewSet):
     # category | sub_category | latest
 
     def get_queryset(self):
-        queryset = CwbArticle.objects.all().order_by("-updated_at")
+        queryset = CwbArticle.objects.all().order_by("-created_at")
         category = self.request.GET.get("category", None)
         latest = self.request.GET.get("latest", None)
         oldest = self.request.GET.get("oldest", None)
         importance = self.request.GET.get("importance", None)
+        highlighted = self.request.GET.get("highlighted",None)
         if category:
             queryset = queryset.filter(category__iexact=category)
         if latest:
-            queryset = queryset.order_by("-updated_at")
+            queryset = queryset.order_by("-created_at")
         if oldest:
-            queryset = queryset.order_by("updated_at")
+            queryset = queryset.order_by("created_at")
         if importance:
-            queryset = queryset.order_by("is_important")
+            queryset = queryset.filter(is_important=True)
+        if highlighted:
+            queryset = queryset.filter(is_highlighted=True)
+
         return queryset
 
     @extend_schema(
@@ -62,6 +66,10 @@ class CardiacWellBeingViewSet(viewsets.ReadOnlyModelViewSet):
                 name="importance",
                 type=bool,
                 description="order by article's importance (true/false)",
+            ),OpenApiParameter(
+                name='highlighted',
+                type=bool,
+                description='highlighted articles',
             ),
         ]
     )
