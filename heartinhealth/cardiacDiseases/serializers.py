@@ -1,12 +1,6 @@
 from rest_framework import serializers
-from drf_spectacular.utils import extend_schema_field
-from .models import CdArticle, SecondaryImage, AttachedFile
+from .models import CdArticle, AttachedFile
 
-
-class CDSecondaryImagesSRZ(serializers.ModelSerializer):
-    class Meta:
-        model = SecondaryImage
-        fields = "__all__"
 
 
 class CDAttachedFilesSRZ(serializers.ModelSerializer):
@@ -16,20 +10,16 @@ class CDAttachedFilesSRZ(serializers.ModelSerializer):
 
 
 class CardiacDiseasesSRZ(serializers.ModelSerializer):
-    secondary_images = CDSecondaryImagesSRZ(many=True, read_only=True)
     attached_files = CDAttachedFilesSRZ(many=True, read_only=True)
-    author_full_name = serializers.SerializerMethodField()
 
     class Meta:
         model = CdArticle
         fields = [
             "id",
             "title",
-            "author_full_name",
-            "author_label",
             "category",
             "sub_category",
-            "overView",
+            "description",
             "content",
             "keywords",
             "created_at",
@@ -40,14 +30,6 @@ class CardiacDiseasesSRZ(serializers.ModelSerializer):
             "is_active",
             "is_important",
             "is_highlighted",
-            "is_highlighted_score",
             "attached_files",
-            "secondary_images",
         ]
 
-    @extend_schema_field(serializers.CharField(allow_null=True))  # Fix drf-spectacular warning
-    def get_author_full_name(self, obj) -> str | None:
-        if obj.author:
-            full_name = f"{obj.author.first_name} {obj.author.last_name}".strip()
-            return full_name if full_name else obj.author.username
-        return None  # Consistent return type

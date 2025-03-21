@@ -1,37 +1,21 @@
 from django.db import models
-from django.contrib.auth.models import User
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django_ckeditor_5.fields import CKEditor5Field
 
-
-def get_default_user():
-    """Fetches the first user or creates a default user if none exist."""
-    user = User.objects.first()
-    if user:
-        return user.id  # Returns a valid user ID
-    return None  # Allows NULL if no user exists
 
 
 class CiArticle(models.Model):
     title = models.CharField(max_length=200)
-    author = models.ForeignKey(
-        User,
-        on_delete=models.SET_DEFAULT,
-        default=get_default_user,
-        related_name="cardiacInnovationsArticles",
-    )
-    author_label = models.CharField(max_length=50, blank=True, null=True)
     category = models.CharField(
         max_length=50,
         choices=[
-            ("Screening", "screening"),
-            ("Diagnosis", "diagnosis"),
-            ("Treatment", "treatment"),
-            ("Care", "care"),
+            ("Screening", "Screening"),
+            ("Diagnosis", "Diagnosis"),
+            ("Treatment", "Treatment"),
+            ("Care", "Care"),
         ],
     )
     description= models.CharField(max_length=200, null=True)
-    overView = models.TextField()
-    content = models.TextField()
+    content = CKEditor5Field('Content', config_name='default')
     keywords = models.CharField(max_length=500, help_text="comma-separated keywords")
     search_queries = models.CharField(max_length=200, help_text="csv", null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -44,21 +28,9 @@ class CiArticle(models.Model):
     is_active = models.BooleanField(default=True)
     is_important = models.BooleanField(default=False)
     is_highlighted = models.BooleanField(default=False)
-    is_highlighted_score = models.IntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(5)], blank=True, null=True
-    )
 
     def __str__(self):
         return self.title
-
-
-class SecondaryImage(models.Model):
-    Article = models.ForeignKey(
-        CiArticle, on_delete=models.CASCADE, related_name="secondary_images"
-    )
-    secondary_image = models.ImageField(
-        upload_to="CI/secondary_images", blank=True, null=True
-    )
 
 
 class AttachedFile(models.Model):

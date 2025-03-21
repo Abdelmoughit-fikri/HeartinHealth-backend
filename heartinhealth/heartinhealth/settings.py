@@ -1,7 +1,13 @@
 import os
 from pathlib import Path
+
+import os
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 from dotenv import load_dotenv
 load_dotenv()
+
 
 
 DEBUG = True
@@ -74,11 +80,11 @@ WSGI_APPLICATION = "heartinhealth.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "USER": os.getenv('DB_USER_NAME'),
-        "NAME": os.getenv('DB_NAME'),
-        "PASSWORD": os.getenv('DB_PASSWORD'),
-        "HOST": os.getenv('DB_HOST'),
-        "PORT": os.getenv("DB_PORT"),
+        "USER": os.environ.get('DB_USER_NAME'),
+        "NAME": os.environ.get('DB_NAME'),
+        "PASSWORD": os.environ.get('DB_PASSWORD'),
+        "HOST": os.environ.get('DB_HOST'),
+        "PORT": os.environ.get('DB_PORT'),
     }
 }
 
@@ -112,17 +118,10 @@ REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
-# SPECTACULAR_SETTINGS = {
-#     "ENUM_NAME_OVERRIDES": {
-#         "cardiacDiseases.models.CdArticle.category": "CdArticleCategoryEnum",
-#         "cardiacSymptomsAndDiagnosis.models.CsdArticle.category": "CsdArticleCategoryEnum",
-#     },
-# }
 
-
-AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID_ENV')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY_ENV')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME_ENV')
 STORAGES = {
     "default": {
         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
@@ -138,9 +137,6 @@ STORAGES = {
 MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/"
 STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/"
 
-
-SECRET_KEY = os.getenv('SECRET_KEY')
-
 CKEDITOR_5_CONFIGS = {
     'default': {
         'toolbar': [
@@ -149,5 +145,6 @@ CKEDITOR_5_CONFIGS = {
         'language': 'en',
     },
 }
-# File upload permission can be set to "staff", "authenticated", or "any"
 CKEDITOR_5_FILE_UPLOAD_PERMISSION = "staff"
+
+SECRET_KEY = os.environ.get('PROJECT_SECRET_KEY_ENV')

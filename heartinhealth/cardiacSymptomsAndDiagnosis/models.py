@@ -1,30 +1,17 @@
 from django.db import models
-from django.contrib.auth.models import User
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django_ckeditor_5.fields import CKEditor5Field
 
 
-def get_default_user():
-    """Fetches the first user or creates a default user if none exist."""
-    user = User.objects.first()
-    if user:
-        return user.id  # Returns a valid user ID
-    return None  # Allows NULL if no user exists
+
 
 
 class CsdArticle(models.Model):
     title = models.CharField(max_length=200)
-    author = models.ForeignKey(
-        User,
-        on_delete=models.SET_DEFAULT,
-        default=get_default_user,
-        related_name="sympsAndDiagsArticles",
-    )
-    author_label = models.CharField(max_length=50, blank=True, null=True)
     category = models.CharField(
         max_length=50,
         choices=[
-            ("heart diseases", "Heart diseases"),
-            ("vascular diseases", "Vascular diseases"),
+            ("Heart Diseases", "Heart Diseases"),
+            ("Vascular Diseases", "Vascular Diseases"),
             (
                 "Systemic Diseases",
                 "Systemic Diseases",
@@ -38,18 +25,19 @@ class CsdArticle(models.Model):
             ("Valvular Heart Diseases", "Valvular Heart Diseases"),
             ("Myocardial Diseases", "Myocardial Diseases"),
             ("Ischemic Heart Diseases", "Ischemic Heart Diseases"),
-            ("Electrical Disorders", "Electrical Disorders"),
+            ("Thromboembolic Diseases", "Thromboembolic Diseases"),
+            ("Arrhythmias", "Arrhythmias"),
             ("Hypertensive Heart Disease", "Hypertensive Heart Disease"),
             ("Heart Failure", "Heart Failure"),
             ("Pericardial Diseases", "Pericardial Diseases"),
+            ("Metabolic Disorders", "Metabolic Disorders"),
             ("Arterial Diseases", "Arterial Diseases"),
             ("Venous Diseases", "Venous Diseases"),
         ],
         null=True,
     )
     description= models.CharField(max_length=200, null=True)
-    overView = models.TextField()
-    content = models.TextField()
+    content = CKEditor5Field('Content', config_name='default')
     keywords = models.CharField(max_length=500, help_text="comma-separated keywords")
     search_queries = models.CharField(max_length=200, help_text="csv", null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -62,9 +50,6 @@ class CsdArticle(models.Model):
     is_active = models.BooleanField(default=True)
     is_important = models.BooleanField(default=False)
     is_highlighted = models.BooleanField(default=False)
-    is_highlighted_score = models.IntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(5)], blank=True, null=True
-    )
 
     def __str__(self):
         return self.title
