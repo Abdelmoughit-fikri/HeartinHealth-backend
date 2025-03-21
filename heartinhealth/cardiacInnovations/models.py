@@ -29,6 +29,7 @@ class CiArticle(models.Model):
             ("Care", "care"),
         ],
     )
+    description= models.CharField(max_length=200, null=True)
     overView = models.TextField()
     content = models.TextField()
     keywords = models.CharField(max_length=500, help_text="comma-separated keywords")

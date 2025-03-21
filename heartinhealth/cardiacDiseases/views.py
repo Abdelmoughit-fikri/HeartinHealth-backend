@@ -1,3 +1,8 @@
+from django.core.files.storage import default_storage
+from uuid import uuid4
+from django.conf import settings
+import boto3
+from django.http import JsonResponse
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -38,7 +43,7 @@ class CardiacDiseasesViewSet(viewsets.ReadOnlyModelViewSet):
         latest = self.request.GET.get("latest", None)
         oldest = self.request.GET.get("oldest", None)
         importance = self.request.GET.get("importance", None)
-        highlighted = self.request.GET.get("highlighted",None)
+        highlighted = self.request.GET.get("highlighted", None)
         if category:
             queryset = queryset.filter(category__iexact=category)
         if sub_category:
@@ -72,7 +77,7 @@ class CardiacDiseasesViewSet(viewsets.ReadOnlyModelViewSet):
                 name="importance",
                 type=bool,
                 description="order by article's importance (true/false)",
-            ),OpenApiParameter(
+            ), OpenApiParameter(
                 name='highlighted',
                 type=bool,
                 description='highlighted articles',
@@ -82,3 +87,32 @@ class CardiacDiseasesViewSet(viewsets.ReadOnlyModelViewSet):
     def list(self, request):
         """List articles with filters and pagination"""
         return super().list(request)
+
+    # core/views.py
+
+
+def upload_image(request):
+    if request.method == 'POST' and request.FILES.get('upload'):
+        file = request.FILES['upload']
+        # Define the S3 folder path within the bucket
+        folder_path = 'article_images/'  # Folder structure
+        # Generate a unique file name
+        file_name = f"{folder_path}{uuid4()}_{file.name}"
+        
+        # Upload the file to AWS S3
+        s3 = boto3.client('s3', 
+                         aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+                         aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+                         region_name='your-region')  # Replace with your S3 region
+        
+        try:
+            s3.upload_fileobj(file, settings.AWS_STORAGE_BUCKET_NAME, file_name, 
+                              ExtraArgs={'ContentType': file.content_type})
+            
+            # Generate the file URL
+            file_url = f"https://{settings.AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{file_name}"
+            return JsonResponse({'url': file_url})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+    return JsonResponse({'error': 'No file uploaded'}, status=400)

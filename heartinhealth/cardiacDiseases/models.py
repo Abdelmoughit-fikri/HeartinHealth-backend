@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django_ckeditor_5.fields import CKEditor5Field
+
+
 
 
 def get_default_user():
@@ -23,11 +26,11 @@ class CdArticle(models.Model):
     category = models.CharField(
         max_length=50,
         choices=[
-            ("heart diseases", "Heart diseases"),
-            ("vascular diseases", "Vascular diseases"),
+            ("heart diseases", "heart diseases"),
+            ("vascular diseases", "vascular diseases"),
             (
-                "Systemic Diseases",
-                "Systemic Diseases",
+                "systemic Diseases",
+                "systemic Diseases",
             ),
         ],
     )
@@ -47,8 +50,9 @@ class CdArticle(models.Model):
         ],
         null=True,
     )
+    description= models.CharField(max_length=200, null=True)
     overView = models.TextField()
-    content = models.TextField()
+    content = CKEditor5Field('Content', config_name='default')
     keywords = models.CharField(max_length=500, help_text="comma-separated keywords")
     search_queries = models.CharField(max_length=200, help_text="csv", null=True)
     created_at = models.DateTimeField(auto_now_add=True)

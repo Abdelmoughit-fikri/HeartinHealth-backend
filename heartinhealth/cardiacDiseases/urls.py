@@ -8,4 +8,5 @@ router.register(r"", views.CardiacDiseasesViewSet, basename="cardiac-diseases-ar
 
 urlpatterns = [
     path("", include(router.urls)),
+    path('upload-image/', views.upload_image, name='upload_image'),
 ]

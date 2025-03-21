@@ -4,10 +4,9 @@ import environ
 BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
-from corsheaders.defaults import default_headers
 
 
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -25,6 +24,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     'storages',
     "corsheaders",
+    'django_ckeditor_5',
 ]
 
 MIDDLEWARE = [
@@ -57,10 +57,10 @@ TEMPLATES = [
     },
 ]
 
-CORS_ALLOWED_ORIGINS = [  
+CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     'http://192.168.1.110:3000'
-]   
+]
 
 CORS_ALLOW_METHODS = [
     "GET",
@@ -122,9 +122,9 @@ REST_FRAMEWORK = {
 # }
 
 
-AWS_ACCESS_KEY_ID=env('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY=env('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME=env('AWS_STORAGE_BUCKET_NAME')
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
 STORAGES = {
     "default": {
         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
@@ -132,7 +132,7 @@ STORAGES = {
     "staticfiles": {
         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
         "OPTIONS": {
-            "custom_domain": "heartinhealth.s3.amazonaws.com",  
+            "custom_domain": "heartinhealth.s3.amazonaws.com",
         }
     },
 }
@@ -143,4 +143,13 @@ STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/"
 
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
-
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'toolbar': [
+            'heading', 'bold', 'italic', 'link', 'emoji', 'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', '|', 'outdent', 'indent', 'link'
+        ],
+        'language': 'en',
+    },
+}
+# File upload permission can be set to "staff", "authenticated", or "any"
+CKEDITOR_5_FILE_UPLOAD_PERMISSION = "staff"
