@@ -5,7 +5,7 @@ load_dotenv()
 
 
 DEBUG = True
-ALLOWED_HOSTS = ['16.170.253.124','*']
+ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
