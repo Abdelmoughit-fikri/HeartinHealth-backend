@@ -141,7 +141,7 @@ MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/"
 STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/"
 
 
-SECRET_KEY = env("DJANGO_SECRET_KEY")
+SECRET_KEY = 'y15#2r)y!hn&t*)zx30$idpuz&s46oqnuh$^5_sj(m)0k9v@0j'
 
 CKEDITOR_5_CONFIGS = {
     'default': {
