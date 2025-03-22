@@ -122,16 +122,21 @@ AWS_ACCESS_KEY_ID = os.environ.get('DEV_AWS_ACCESS_KEY_ID_ENV')
 AWS_SECRET_ACCESS_KEY = os.environ.get('DEV_AWS_SECRET_ACCESS_KEY_ENV')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('DEV_AWS_STORAGE_BUCKET_NAME_ENV')
 STORAGES = {
-    "default": {
-        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-    },
-    "staticfiles": {
-        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-        "OPTIONS": {
-            "custom_domain": "heartinhealth.s3.amazonaws.com",
-        }
-    },
-}
+        "default": {
+            "BACKEND": "storages.backends.s3.S3Storage",
+            "OPTIONS": {
+                "bucket_name": AWS_STORAGE_BUCKET_NAME,
+                "location": 'media'
+            },
+        },
+        "staticfiles": {
+            "BACKEND": "storages.backends.s3.S3Storage",
+            "OPTIONS": {
+                "bucket_name": AWS_STORAGE_BUCKET_NAME,
+                "location": 'static'
+            },
+        },
+    }
 
 MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/"
 STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/"
