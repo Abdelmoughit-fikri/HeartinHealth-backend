@@ -15,7 +15,7 @@ class CardiacSymptomsAndDiagnosisSRZ(serializers.ModelSerializer):
     class Meta:
         model = CsdArticle
         fields = [
-            "id",
+             "id",
             "title",
             "category",
             "sub_category",
@@ -27,9 +27,6 @@ class CardiacSymptomsAndDiagnosisSRZ(serializers.ModelSerializer):
             "primary_image",
             "video_URL",
             "links",
-            "is_active",
-            "is_important",
-            "is_highlighted",
             "attached_files",
         ]
 

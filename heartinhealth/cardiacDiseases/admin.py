@@ -8,6 +8,7 @@ class ArticleAdmin(admin.ModelAdmin):
         "category",
         "sub_category",
         "primary_image",
+        "is_active",
         'is_highlighted',
         'is_important',
         "created_at",

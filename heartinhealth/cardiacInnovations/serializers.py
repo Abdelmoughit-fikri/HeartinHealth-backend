@@ -15,7 +15,7 @@ class CardiacInnovationsSRZ(serializers.ModelSerializer):
     class Meta:
         model = CiArticle
         fields = [
-            "id",
+             "id",
             "title",
             "category",
             "description",
@@ -26,8 +26,5 @@ class CardiacInnovationsSRZ(serializers.ModelSerializer):
             "primary_image",
             "video_URL",
             "links",
-            "is_active",
-            "is_important",
-            "is_highlighted",
             "attached_files",
         ]

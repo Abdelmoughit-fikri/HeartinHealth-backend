@@ -32,7 +32,7 @@ class CardiacWellBeingViewSet(viewsets.ReadOnlyModelViewSet):
     # category | sub_category | latest
 
     def get_queryset(self):
-        queryset = CwbArticle.objects.all().order_by("-created_at")
+        queryset = CwbArticle.objects.all().filter(is_active=True).order_by("-created_at")
         category = self.request.GET.get("category", None)
         latest = self.request.GET.get("latest", None)
         oldest = self.request.GET.get("oldest", None)

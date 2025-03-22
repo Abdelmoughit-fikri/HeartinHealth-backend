@@ -7,10 +7,11 @@ class ArticleAdmin(admin.ModelAdmin):
         "title",
         "category",
         "primary_image",
+        "is_active",
         'is_highlighted',
         "is_important",
         "created_at",
-        "updated_at"
+        "updated_at",
     )
     
 class CIAttachedFileAdmin(admin.ModelAdmin):

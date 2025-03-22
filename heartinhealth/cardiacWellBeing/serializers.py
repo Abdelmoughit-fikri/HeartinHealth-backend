@@ -27,8 +27,5 @@ class CardiacWellBeingSRZ(serializers.ModelSerializer):
             "primary_image",
             "video_URL",
             "links",
-            "is_active",
-            "is_important",
-            "is_highlighted",
             "attached_files",
         ]

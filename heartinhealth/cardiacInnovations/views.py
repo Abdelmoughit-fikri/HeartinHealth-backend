@@ -32,7 +32,7 @@ class CardiacInnovationsViewSet(viewsets.ReadOnlyModelViewSet):
     # category | sub_category | latest | oldest | importance | highlighted
 
     def get_queryset(self):
-        queryset = CiArticle.objects.all().order_by("-created_at")
+        queryset = CiArticle.objects.all().filter(is_active=True).order_by("-created_at")
         category = self.request.GET.get("category", None)
         latest = self.request.GET.get("latest", None)
         oldest = self.request.GET.get("oldest", None)

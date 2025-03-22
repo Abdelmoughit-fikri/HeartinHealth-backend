@@ -1,9 +1,6 @@
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
 
-
-
-
 class CwbArticle(models.Model):
     title = models.CharField(max_length=200)
     category = models.CharField(
@@ -17,7 +14,7 @@ class CwbArticle(models.Model):
         null=True,
     )
     description= models.CharField(max_length=200, null=True)
-    content = CKEditor5Field('Content', config_name='default')
+    content = CKEditor5Field('Content', config_name='extends')
     keywords = models.CharField(max_length=500, help_text="comma-separated keywords")
     search_queries = models.CharField(max_length=200, help_text="csv", null=True)
     created_at = models.DateTimeField(auto_now_add=True)

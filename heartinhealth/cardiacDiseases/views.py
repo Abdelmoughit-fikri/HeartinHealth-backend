@@ -1,9 +1,7 @@
-from django.core.files.storage import default_storage
 from uuid import uuid4
 from django.conf import settings
 import boto3
 from django.http import JsonResponse
-from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.response import Response
 from .models import CdArticle
@@ -37,7 +35,7 @@ class CardiacDiseasesViewSet(viewsets.ReadOnlyModelViewSet):
     # category | sub_category | latest | oldest | importance
 
     def get_queryset(self):
-        queryset = CdArticle.objects.all().order_by("-created_at")
+        queryset = CdArticle.objects.all().filter(is_active=True).order_by("-created_at")
         category = self.request.GET.get("category", None)
         sub_category = self.request.GET.get("sub_category", None)
         latest = self.request.GET.get("latest", None)
@@ -88,7 +86,6 @@ class CardiacDiseasesViewSet(viewsets.ReadOnlyModelViewSet):
         """List articles with filters and pagination"""
         return super().list(request)
 
-    # core/views.py
 
 
 def upload_image(request):

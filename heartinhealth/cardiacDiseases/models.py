@@ -25,7 +25,7 @@ class CdArticle(models.Model):
             ("Ischemic Heart Diseases", "Ischemic Heart Diseases"),
             ("Thromboembolic Diseases", "Thromboembolic Diseases"),
             ("Arrhythmias", "Arrhythmias"),
-            ("Hypertensive Heart Disease", "Hypertensive Heart Disease"),
+            ("Hypertensive Heart Diseases", "Hypertensive Heart Diseases"),
             ("Heart Failure", "Heart Failure"),
             ("Pericardial Diseases", "Pericardial Diseases"),
             ("Metabolic Disorders", "Metabolic Disorders"),
@@ -35,7 +35,7 @@ class CdArticle(models.Model):
         null=True,
     )
     description= models.CharField(max_length=200, null=True)
-    content = CKEditor5Field('Content', config_name='default')
+    content = CKEditor5Field('Content', config_name='extends')
     keywords = models.CharField(max_length=500, help_text="comma-separated keywords")
     search_queries = models.CharField(max_length=200, help_text="csv", null=True)
     created_at = models.DateTimeField(auto_now_add=True)
