@@ -10,7 +10,7 @@ load_dotenv()
 
 
 DEBUG = True
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1']
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -80,10 +80,10 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
         "USER": os.environ.get('DB_USER_NAME'),
-        "NAME": os.environ.get('DB_NAME'),
+        "NAME": os.environ.get('DEV_DB_NAME'),
         "PASSWORD": os.environ.get('DB_PASSWORD'),
-        "HOST": os.environ.get('DB_HOST'),
-        "PORT": os.environ.get('DB_PORT'),
+        "HOST": os.environ.get('DEV_DB_HOST'),
+        "PORT": os.environ.get('DEV_DB_PORT'),
     }
 }
 
@@ -118,9 +118,9 @@ REST_FRAMEWORK = {
 }
 
 
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID_ENV')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY_ENV')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME_ENV')
+AWS_ACCESS_KEY_ID = os.environ.get('DEV_AWS_ACCESS_KEY_ID_ENV')
+AWS_SECRET_ACCESS_KEY = os.environ.get('DEV_AWS_SECRET_ACCESS_KEY_ENV')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('DEV_AWS_STORAGE_BUCKET_NAME_ENV')
 STORAGES = {
     "default": {
         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
@@ -170,8 +170,6 @@ customColorPalette = [
 ]
 
 CKEDITOR_5_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# CKEDITOR_5_ALLOW_ALL_FILE_TYPES = True
-# CKEDITOR_5_UPLOAD_FILE_TYPES = ['jpeg', 'pdf', 'png']
 CKEDITOR_5_CONFIGS = {
     'default': {
         'toolbar': {
