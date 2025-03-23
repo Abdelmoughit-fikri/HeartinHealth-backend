@@ -11,7 +11,8 @@ DATABASES = {
         "PORT": os.environ.get('PROD_DB_PORT',"3306"),
     }
 }
-ALLOWED_HOSTS = [os.getenv('PROD_ALLOWED_HOST', '')]
+# ALLOWED_HOSTS = [os.getenv('PROD_ALLOWED_HOST', '')]
+ALLOWED_HOSTS = ['51.21.200.11']
 AWS_ACCESS_KEY_ID = os.environ.get('PROD_AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('PROD_AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('PROD_AWS_STORAGE_BUCKET_NAME')
