@@ -2,8 +2,6 @@ from dotenv import load_dotenv
 import os
 from pathlib import Path
 
-import os
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv()
@@ -81,11 +79,11 @@ WSGI_APPLICATION = "heartinhealth.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "USER": os.environ.get('DB_USER_NAME'),
-        "NAME": os.environ.get('DEV_DB_NAME'),
-        "PASSWORD": os.environ.get('DB_PASSWORD'),
-        "HOST": os.environ.get('DEV_DB_HOST'),
-        "PORT": os.environ.get('DEV_DB_PORT'),
+        "USER": os.getenv('DB_USER_NAME'),
+        "NAME": os.getenv('DEV_DB_NAME'),
+        "PASSWORD": os.getenv('DB_PASSWORD'),
+        "HOST": os.getenv('DEV_DB_HOST'),
+        "PORT": os.getenv('DEV_DB_PORT'),
     }
 }
 
@@ -120,9 +118,9 @@ REST_FRAMEWORK = {
 }
 
 
-AWS_ACCESS_KEY_ID = os.environ.get('DEV_AWS_ACCESS_KEY_ID_ENV')
-AWS_SECRET_ACCESS_KEY = os.environ.get('DEV_AWS_SECRET_ACCESS_KEY_ENV')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('DEV_AWS_STORAGE_BUCKET_NAME_ENV')
+AWS_ACCESS_KEY_ID = os.getenv('DEV_AWS_ACCESS_KEY_ID_ENV')
+AWS_SECRET_ACCESS_KEY = os.getenv('DEV_AWS_SECRET_ACCESS_KEY_ENV')
+AWS_STORAGE_BUCKET_NAME = os.getenv('DEV_AWS_STORAGE_BUCKET_NAME_ENV')
 STORAGES = {
         "default": {
             "BACKEND": "storages.backends.s3.S3Storage",
@@ -248,4 +246,4 @@ CKEDITOR_5_CONFIGS = {
     }
 }
 
-SECRET_KEY = os.environ.get('PROJECT_SECRET_KEY_ENV')
+SECRET_KEY = os.getenv('PROJECT_SECRET_KEY_ENV')

@@ -1,21 +1,21 @@
 from .base import *
+from dotenv import load_dotenv
+load_dotenv()
 
-DEBUG=False
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "USER": os.environ.get('PROD_DB_USER_NAME'),
-        "NAME": os.environ.get('PROD_DB_NAME'),
-        "PASSWORD": os.environ.get('PROD_DB_PASSWORD'),
-        "HOST": os.environ.get('PROD_DB_HOST'),
-        "PORT": os.environ.get('PROD_DB_PORT',"3306"),
+        "USER": os.getenv('PROD_DB_USER_NAME'),
+        "NAME": os.getenv('PROD_DB_NAME'),
+        "PASSWORD": os.getenv('PROD_DB_PASSWORD'),
+        "HOST": os.getenv('PROD_DB_HOST'),
+        "PORT": os.getenv('PROD_DB_PORT',"3306"),
     }
 }
-# ALLOWED_HOSTS = [os.getenv('PROD_ALLOWED_HOST', '')]
-ALLOWED_HOSTS = ['51.21.200.11']
-AWS_ACCESS_KEY_ID = os.environ.get('PROD_AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('PROD_AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('PROD_AWS_STORAGE_BUCKET_NAME')
+ALLOWED_HOSTS = [os.getenv('PROD_ALLOWED_HOSTS', '')]
+AWS_ACCESS_KEY_ID = os.getenv('PROD_AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('PROD_AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('PROD_AWS_STORAGE_BUCKET_NAME')
 MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/"
 STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/"
 STORAGES = {
