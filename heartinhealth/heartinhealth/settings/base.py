@@ -8,7 +8,7 @@ load_dotenv()
 
 
 DEBUG = False
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1' , 'ec2-51-21-200-11.eu-north-1.compute.amazonaws.com']
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
