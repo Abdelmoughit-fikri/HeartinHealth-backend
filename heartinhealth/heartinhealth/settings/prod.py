@@ -2,32 +2,21 @@ from .base import *
 from dotenv import load_dotenv
 load_dotenv()
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.mysql",
-#         "USER": os.getenv('PROD_DB_USER_NAME'),
-#         "NAME": os.getenv('PROD_DB_NAME'),
-#         "PASSWORD": os.getenv('PROD_DB_PASSWORD'),
-#         "HOST": os.getenv('PROD_DB_HOST'),
-#         "PORT": os.getenv('PROD_DB_PORT',"3306"),
-#     }
-# }
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "USER": 'admin',
-        "NAME": 'heartinhealth_database_27',
-        "PASSWORD": 'OPETHHINH25',
-        "HOST": 'hinh-db-rds.cz82yammuins.eu-north-1.rds.amazonaws.com',
-        "PORT": '3306',
+        "USER": os.getenv('PROD_DB_USER_NAME'),
+        "NAME": os.getenv('PROD_DB_NAME'),
+        "PASSWORD": os.getenv('PROD_DB_PASSWORD'),
+        "HOST": os.getenv('PROD_DB_HOST'),
+        "PORT": os.getenv('PROD_DB_PORT',"3306"),
     }
+}
 }
 # ALLOWED_HOSTS = [os.getenv('PROD_ALLOWED_HOSTS', '')]
 # ALLOWED_HOSTS = ['51.21.200.11']
-# AWS_ACCESS_KEY_ID = os.getenv('PROD_AWS_ACCESS_KEY_ID')
-AWS_ACCESS_KEY_ID = 'AKIAXZEFIEOT5EAOVOFW'
-# AWS_SECRET_ACCESS_KEY = os.getenv('PROD_AWS_SECRET_ACCESS_KEY')
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = os.getenv('PROD_AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('PROD_AWS_SECRET_ACCESS_KEY')
 # AWS_STORAGE_BUCKET_NAME = os.getenv('PROD_AWS_STORAGE_BUCKET_NAME')
 AWS_STORAGE_BUCKET_NAME = 'heartinhealth'
 MEDIA_URL = "https://heartinhealth.s3.amazonaws.com/media/"
