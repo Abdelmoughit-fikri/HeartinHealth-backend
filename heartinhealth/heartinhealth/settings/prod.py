@@ -2,14 +2,24 @@ from .base import *
 from dotenv import load_dotenv
 load_dotenv()
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.mysql",
+#         "USER": os.getenv('PROD_DB_USER_NAME'),
+#         "NAME": os.getenv('PROD_DB_NAME'),
+#         "PASSWORD": os.getenv('PROD_DB_PASSWORD'),
+#         "HOST": os.getenv('PROD_DB_HOST'),
+#         "PORT": os.getenv('PROD_DB_PORT',"3306"),
+#     }
+# }
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "USER": os.getenv('PROD_DB_USER_NAME'),
-        "NAME": os.getenv('PROD_DB_NAME'),
-        "PASSWORD": os.getenv('PROD_DB_PASSWORD'),
-        "HOST": os.getenv('PROD_DB_HOST'),
-        "PORT": os.getenv('PROD_DB_PORT',"3306"),
+        "USER": 'admin',
+        "NAME": 'heartinhealth_database_27',
+        "PASSWORD": 'OPETHHINH25',
+        "HOST": 'hinh-db-rds.cz82yammuins.eu-north-1.rds.amazonaws.com',
+        "PORT": '3306',
     }
 }
 # ALLOWED_HOSTS = [os.getenv('PROD_ALLOWED_HOSTS', '')]
