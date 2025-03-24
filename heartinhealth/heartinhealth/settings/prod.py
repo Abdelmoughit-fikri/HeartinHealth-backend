@@ -16,21 +16,22 @@ DATABASES = {
 # ALLOWED_HOSTS = ['51.21.200.11']
 AWS_ACCESS_KEY_ID = os.getenv('PROD_AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('PROD_AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.getenv('PROD_AWS_STORAGE_BUCKET_NAME')
-MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/"
-STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/"
+# AWS_STORAGE_BUCKET_NAME = os.getenv('PROD_AWS_STORAGE_BUCKET_NAME')
+AWS_STORAGE_BUCKET_NAME = 'heartinhealth'
+MEDIA_URL = "https://heartinhealth.s3.amazonaws.com/media/"
+STATIC_URL = "https://heartinhealth.s3.amazonaws.com/static/"
 STORAGES = {
         "default": {
             "BACKEND": "storages.backends.s3.S3Storage",
             "OPTIONS": {
-                "bucket_name": AWS_STORAGE_BUCKET_NAME,
+                "bucket_name": 'heartinhealth',
                 "location": 'media'
             },
         },
         "staticfiles": {
             "BACKEND": "storages.backends.s3.S3Storage",
             "OPTIONS": {
-                "bucket_name": AWS_STORAGE_BUCKET_NAME,
+                "bucket_name": 'heartinhealth',
                 "location": 'static'
             },
         },
