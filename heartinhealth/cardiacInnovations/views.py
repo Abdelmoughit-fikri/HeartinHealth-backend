@@ -5,6 +5,7 @@ from .models import CiArticle
 from .serializers import CardiacInnovationsSRZ
 from rest_framework.pagination import PageNumberPagination
 from drf_spectacular.utils import extend_schema, OpenApiParameter
+from rest_framework_api_key.permissions import HasAPIKey
 
 
 class ArticlePagination(PageNumberPagination):
@@ -24,6 +25,7 @@ class ArticlePagination(PageNumberPagination):
 
 
 class CardiacInnovationsViewSet(viewsets.ReadOnlyModelViewSet):
+    permission_classes = [HasAPIKey]
     queryset = CiArticle.objects.all()
     serializer_class = CardiacInnovationsSRZ
     pagination_class = ArticlePagination

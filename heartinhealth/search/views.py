@@ -7,9 +7,29 @@ from cardiacInnovations.models import CiArticle
 from cardiacSymptomsAndDiagnosis.models import CsdArticle
 from cardiacWellBeing.models import CwbArticle
 from .serializers import CdSearchSRZ, CiSearchSRZ, CsdSearchSRZ, CwbSearchSRZ
+from rest_framework_api_key.permissions import HasAPIKey
+from rest_framework.pagination import PageNumberPagination
+
+
+class ArticlePagination(PageNumberPagination):
+    page_size = 7
+    page_size_query_param = "page_size"
+    max_page_size = 30
+
+    def get_paginated_response(self, data):
+        return Response(
+            {
+                "count": self.page.paginator.count,
+                "articles": data,
+                "next": self.get_next_link(),
+                "previous": self.get_previous_link(),
+            }
+        )
 
 
 class searcHinhViewSet(GenericViewSet):
+    permission_classes = [HasAPIKey]
+    pagination_class = ArticlePagination
     def list(self, request):
         query = self.request.GET.get("term", "")
 
@@ -45,4 +65,8 @@ class searcHinhViewSet(GenericViewSet):
             | Q(category__icontains=query)
         )
         results += CwbSearchSRZ(CWB_results, many=True).data
-        return Response({"search_results": results})
+        paginator = self.pagination_class()
+        page = paginator.paginate_queryset(results, request, view=self)
+        if page is not None:
+            return paginator.get_paginated_response(page)
+        return Response({"articles": results})  

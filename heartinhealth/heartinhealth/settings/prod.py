@@ -5,41 +5,48 @@ load_dotenv()
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "USER": os.getenv('PROD_DB_USER_NAME'),
-        "NAME": os.getenv('PROD_DB_NAME'),
-        "PASSWORD": os.getenv('PROD_DB_PASSWORD'),
-        "HOST": os.getenv('PROD_DB_HOST'),
-        "PORT": os.getenv('PROD_DB_PORT',"3306"),
+        "USER": os.environ.get('PROD_DB_USER_NAME'),
+        "NAME": os.environ.get('PROD_DB_NAME'),
+        "PASSWORD": os.environ.get('PROD_DB_PASSWORD'),
+        "HOST": os.environ.get('PROD_DB_HOST'),
+        "PORT": os.environ.get('PROD_DB_PORT',"3306"),
     }
 }
-# ALLOWED_HOSTS = [os.getenv('PROD_ALLOWED_HOSTS', '')]
-# ALLOWED_HOSTS = ['51.21.200.11']
-AWS_ACCESS_KEY_ID = os.getenv('PROD_AWS_ACCESS_KEY_ID')
-# AWS_ACCESS_KEY_ID = 'AKIAXZEFIEOT7SCT4NVW'
-AWS_SECRET_ACCESS_KEY = os.getenv('PROD_AWS_SECRET_ACCESS_KEY')
-# AWS_SECRET_ACCESS_KEY = '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'
-# AWS_STORAGE_BUCKET_NAME = os.getenv('PROD_AWS_STORAGE_BUCKET_NAME')
-AWS_STORAGE_BUCKET_NAME = 'heartinhealth'
-MEDIA_URL = "https://heartinhealth.s3.amazonaws.com/media/"
-STATIC_URL = "https://heartinhealth.s3.amazonaws.com/static/"
-STORAGES = {
-        "default": {
-            "BACKEND": "storages.backends.s3.S3Storage",
-            "OPTIONS": {
-                "bucket_name": 'heartinhealth',
-                "location": 'media'
-            },
-        },
-        "staticfiles": {
-            "BACKEND": "storages.backends.s3.S3Storage",
-            "OPTIONS": {
-                "bucket_name": 'heartinhealth',
-                "location": 'static'
-            },
-        },
-    }
 
-
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'formatters': {
+#         'verbose': {
+#             'format': '{levelname} {asctime} {module} {message}',
+#             'style': '{',
+#         },
+#         'simple': {
+#             'format': '{levelname} {message}',
+#             'style': '{',
+#         },
+#     },
+#     'handlers': {
+#         'file': {
+#             'level': 'ERROR',
+#             'class': 'logging.FileHandler',
+#             'filename': '/var/log/django_errors.log',
+#             'formatter': 'verbose',
+#         },
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'simple',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['file', 'console'],
+#             'level': 'ERROR',
+#             'propagate': True,
+#         },
+#     },
+# }
 
 
 

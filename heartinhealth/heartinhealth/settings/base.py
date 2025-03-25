@@ -6,8 +6,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv()
 
+SECRET_KEY = os.environ.get('PROJECT_SECRET_KEY_ENV')
+SECRET_DOCS_TOKEN = os.environ.get('DOCS_TOKEN')
 
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -16,12 +18,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "info",
     "cardiacWellBeing",
     "cardiacDiseases",
     "cardiacSymptomsAndDiagnosis",
     "cardiacInnovations",
     "search",
     "rest_framework",
+    "rest_framework_api_key",
     "drf_spectacular",
     'storages',
     "corsheaders",
@@ -45,7 +49,8 @@ ROOT_URLCONF = "heartinhealth.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [
+            BASE_DIR / 'templates',],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -72,6 +77,7 @@ TEMPLATES = [
 #     "Content-Type",
 #     "X-Requested-With",
 #     "Accept",
+#     "Authorization",
 # ]
 
 WSGI_APPLICATION = "heartinhealth.wsgi.application"
@@ -115,37 +121,38 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework_api_key.permissions.HasAPIKey",
+    ],
 }
 
 
-AWS_ACCESS_KEY_ID = os.getenv('DEV_AWS_ACCESS_KEY_ID_ENV')
-AWS_SECRET_ACCESS_KEY = os.getenv('DEV_AWS_SECRET_ACCESS_KEY_ENV')
-AWS_STORAGE_BUCKET_NAME = os.getenv('DEV_AWS_STORAGE_BUCKET_NAME_ENV')
-STORAGES = {
-        "default": {
-            "BACKEND": "storages.backends.s3.S3Storage",
-            "OPTIONS": {
-                "bucket_name": AWS_STORAGE_BUCKET_NAME,
-                "location": 'media'
-            },
-        },
-        "staticfiles": {
-            "BACKEND": "storages.backends.s3.S3Storage",
-            "OPTIONS": {
-                "bucket_name": AWS_STORAGE_BUCKET_NAME,
-                "location": 'static'
-            },
-        },
-    }
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID_ENV')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY_ENV')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME_ENV')
+AWS_S3_FILE_OVERWRITE = False
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
-MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/"
-STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/"
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+    },
+}
+
+
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
+STATIC_ROOT = BASE_DIR / "staticfiles"
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-CKEDITOR_UPLOAD_PATH = "uploads/"
-CKEDITOR_BASEPATH = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/ckeditor/ckeditor/"
+CKEDITOR_BASEPATH = f'{STATIC_URL}ckeditor/ckeditor/'
 CKEDITOR_5_FILE_UPLOAD_PERMISSION = "staff"
+CKEDITOR_5_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+CKEDITOR_UPLOAD_PATH = "article_ck_uploads/"
 
 customColorPalette = [
     {
@@ -174,12 +181,11 @@ customColorPalette = [
     },
 ]
 
-CKEDITOR_5_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 CKEDITOR_5_CONFIGS = {
     'default': {
         'toolbar': {
             'items': ['heading', '|', 'bold', 'italic', 'link',
-                      'bulletedList', 'numberedList', 'blockQuote', 'imageUpload','fileUpload'],
+                      'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', 'fileUpload'],
         }
 
     },
@@ -246,40 +252,8 @@ CKEDITOR_5_CONFIGS = {
     }
 }
 
-SECRET_KEY = os.getenv('PROJECT_SECRET_KEY_ENV')
 
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '{levelname} {asctime} {module} {message}',
-            'style': '{',
-        },
-        'simple': {
-            'format': '{levelname} {message}',
-            'style': '{',
-        },
-    },
-    'handlers': {
-        'file': {
-            'level': 'ERROR',
-            'class': 'logging.FileHandler',
-            'filename': '/var/log/django_errors.log',
-            'formatter': 'verbose',
-        },
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file', 'console'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-    },
-}
+# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID_ENV')
+# AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY_ENV')
+# AWS_STORAGE_BUCKET_NAME = 'heartinhealth'
+# AWS_S3_REGION_NAME = 'eu-north-1'
