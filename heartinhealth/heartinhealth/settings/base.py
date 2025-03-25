@@ -9,8 +9,8 @@ load_dotenv()
 SECRET_KEY = os.environ.get('PROJECT_SECRET_KEY_ENV')
 SECRET_DOCS_TOKEN = os.environ.get('DOCS_TOKEN')
 
-DEBUG = True
-ALLOWED_HOSTS = ['*']
+DEBUG = False
+ALLOWED_HOSTS = ['127.0.0.1' , '51.21.200.11']
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
