@@ -10,7 +10,7 @@ SECRET_KEY = os.environ.get('PROJECT_SECRET_KEY_ENV')
 SECRET_DOCS_TOKEN = os.environ.get('DOCS_TOKEN')
 
 DEBUG = False
-ALLOWED_HOSTS = ['127.0.0.1' , '51.21.200.11']
+ALLOWED_HOSTS = ['127.0.0.1' , '16.171.175.15']
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
