@@ -63,22 +63,22 @@ TEMPLATES = [
     },
 ]
 
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000",
-#     "http://192.168.1.110:3000",
-# ]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://192.168.1.110:3000",
+]
 
-# CORS_ALLOW_METHODS = [
-#     "GET",
-#     "OPTIONS",
-# ]
+CORS_ALLOW_METHODS = [
+    "GET",
+    "OPTIONS",
+]
 
-# CORS_ALLOW_HEADERS = [
-#     "Content-Type",
-#     "X-Requested-With",
-#     "Accept",
-#     "Authorization",
-# ]
+CORS_ALLOW_HEADERS = [
+    "Content-Type",
+    "X-Requested-With",
+    "Accept",
+    "Authorization",
+]
 
 WSGI_APPLICATION = "heartinhealth.wsgi.application"
 
