@@ -18,7 +18,7 @@ from django.urls import include, path
 secretKey = settings.SECRET_DOCS_TOKEN
 urlpatterns = [
     path("", include("info.urls")),
-    path("heartinhealthAdmin/", admin.site.urls),
+    path("heartinhealthOpethianAdmin/", admin.site.urls),
     path("api/cardiacDiseases/", include("cardiacDiseases.urls")),
     path("api/symptoms/", include("cardiacSymptomsAndDiagnosis.urls")),
     path("api/cardiacWellBeing/", include("cardiacWellBeing.urls")),
