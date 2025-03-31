@@ -7,10 +7,10 @@ class CwbArticle(models.Model):
     category = models.CharField(
         max_length=50,
         choices=[
-            ("Stress Management", "Stress"),
-            ("Physical Activity", "Exercice"),
-            ("Nutrition & Diet", "Nutrition"),
-            ("Mind-Body Practices", "MindBody"),
+            ("Stress Management", "Stress Management"),
+            ("Physical Activity", "Physical Activity"),
+            ("Nutrition & Diet", "Nutrition & Diet"),
+            ("Mind-Body Practices", "Mind-Body Practices"),
         ],
         null=True,
     )
