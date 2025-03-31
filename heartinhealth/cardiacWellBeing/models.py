@@ -1,22 +1,25 @@
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
 
+
 class CwbArticle(models.Model):
     title = models.CharField(max_length=200)
     category = models.CharField(
         max_length=50,
         choices=[
-            ("Stress", "Stress Management"),
-            ("Exercice", "Physical Activity"),
-            ('Nutrition', 'Nutrition & Diet'),
-            ("MindBody","Mind-Body Practices"),
+            ("Stress Management", "Stress"),
+            ("Physical Activity", "Exercice"),
+            ("Nutrition & Diet", "Nutrition"),
+            ("Mind-Body Practices", "MindBody"),
         ],
         null=True,
     )
-    description= models.CharField(max_length=200, null=True)
+    description = models.CharField(max_length=200, null=True)
     content = CKEditor5Field('Content', config_name='extends')
-    keywords = models.CharField(max_length=500, help_text="comma-separated keywords")
-    search_queries = models.CharField(max_length=200, help_text="csv", null=True)
+    keywords = models.CharField(
+        max_length=500, help_text="comma-separated keywords")
+    search_queries = models.CharField(
+        max_length=200, help_text="csv", null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     primary_image = models.ImageField(upload_to="CWB/primary_images")
@@ -30,7 +33,6 @@ class CwbArticle(models.Model):
 
     def __str__(self):
         return self.title
-
 
 
 class AttachedFile(models.Model):
