@@ -8,11 +8,11 @@ class CsdArticle(models.Model):
     category = models.CharField(
         max_length=50,
         choices=[
-            ("Heart Diseases", "Heart Diseases"),
-            ("Vascular Diseases", "Vascular Diseases"),
+            ("Heart Symptoms", "Heart Symptoms"),
+            ("Vascular Symptoms", "Vascular Symptoms"),
             (
-                "Systemic Diseases",
-                "Systemic Diseases",
+                "Systemic Symptoms",
+                "Systemic Symptoms",
             ),
         ],
     )
