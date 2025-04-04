@@ -53,14 +53,6 @@ class CsdArticle(models.Model):
         return self.title
 
 
-class SecondaryImage(models.Model):
-    Article = models.ForeignKey(
-        CsdArticle, on_delete=models.CASCADE, related_name="secondary_images"
-    )
-    secondary_image = models.ImageField(
-        upload_to="S&D/secondary_images", blank=True, null=True
-    )
-
 
 class AttachedFile(models.Model):
     Article = models.ForeignKey(
