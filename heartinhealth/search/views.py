@@ -32,7 +32,7 @@ class searcHinhViewSet(GenericViewSet):
     pagination_class = ArticlePagination
 
     def list(self, request):
-        query = self.request.GET.get("q", "")
+        query = self.request.GET.get("term", "")
         if not query:
             return Response({"error": "no search query provided"}, status=400)
         results = []
