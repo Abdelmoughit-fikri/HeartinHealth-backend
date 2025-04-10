@@ -30,12 +30,13 @@ class ArticlePagination(PageNumberPagination):
 class searcHinhViewSet(GenericViewSet):
     permission_classes = [HasAPIKey]
     pagination_class = ArticlePagination
-    def list(self, request):
-        query = self.request.GET.get("term", "")
 
+    def list(self, request):
+        query = self.request.GET.get("q", "")
         if not query:
             return Response({"error": "no search query provided"}, status=400)
         results = []
+
         CD_results = CdArticle.objects.filter(
             Q(title__icontains=query)
             | Q(search_queries__icontains=query)
@@ -63,10 +64,12 @@ class searcHinhViewSet(GenericViewSet):
             Q(title__icontains=query)
             | Q(search_queries__icontains=query)
             | Q(category__icontains=query)
-        )
+        ).order_by('-created_at')
         results += CwbSearchSRZ(CWB_results, many=True).data
+        results.sort(key=lambda x: x.get("created_at"), reverse=True)
+        results.sort(key=lambda x: not x.get("is_highlighted", False))
         paginator = self.pagination_class()
         page = paginator.paginate_queryset(results, request, view=self)
         if page is not None:
             return paginator.get_paginated_response(page)
-        return Response({"articles": results})  
+        return Response({"articles": results})
